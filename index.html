@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Doğum Günü Kartı</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #ADD8E6; /* Bebek mavisi arka plan */
+      font-family: "Comic Sans MS", cursive;
+      overflow: hidden;
+    }
+    .overlay-button {
+      position: absolute;
+      width: 320px;
+      height: 480px;
+      font-size: 24px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: rgba(255, 105, 180, 0.9); /* Pembe buton, yarı opak */
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: opacity 2s;
+      z-index: 2;
+    }
+    .overlay-button.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+    .card-container {
+      width: 320px;
+      height: 480px;
+      perspective: 1000px;
+      cursor: pointer;
+      position: relative;
+    }
+    .card {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 1s;
+    }
+    .card.show-back {
+      transform: rotateY(-180deg); /* Sağdan sola dönüş */
+    }
+    .card-face {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .front {
+      background: url('https://github.com/UnknownBrick/hardyboyz/blob/main/dogum%20gunu.png?raw=true') no-repeat center/cover;
+    }
+    .back {
+      background-color: #fff;
+      transform: rotateY(180deg);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 24px;
+      color: #333;
+    }
+    /* Konfeti Animasyonu */
+    .confetti {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      background-color: #ff69b4;
+      animation: fall 3s linear infinite;
+      opacity: 0.8;
+    }
+    @keyframes fall {
+      0% { transform: translateY(-10vh); opacity: 1; }
+      100% { transform: translateY(100vh); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="card-container">
+  <button class="overlay-button" id="startButton" onclick="startCelebration()">Bana Tıkla</button>
+  <div class="card" id="birthdayCard" onclick="toggleCard()">
+    <div class="card-face front"></div>
+    <div class="card-face back">iyi ki doğdun o(￣▽￣)o</div>
+  </div>
+</div>
+
+<audio id="backgroundMusic" src="https://github.com/UnknownBrick/hardyboyz/blob/main/cats%202023%20remiks.mp3?raw=true" loop></audio>
+
+<script>
+  // Kartı Döndürme Fonksiyonu
+  function toggleCard() {
+    const card = document.getElementById('birthdayCard');
+    card.classList.toggle('show-back');
+  }
+
+  // Kutlamayı Başlatma Fonksiyonu
+  function startCelebration() {
+    // Butonu gizle
+    const startButton = document.getElementById("startButton");
+    startButton.classList.add("hidden");
+
+    // Müzik başlat
+    const music = document.getElementById("backgroundMusic");
+    music.play();
+
+    // Konfeti Patlatma
+    setInterval(createConfetti, 300); // Daha fazla partikül oluşturma
+  }
+
+  // Konfeti Oluşturma Fonksiyonu
+  function createConfetti() {
+    const confetti = document.createElement("div");
+    confetti.classList.add("confetti");
+    confetti.style.left = Math.random() * window.innerWidth + "px";
+    confetti.style.backgroundColor = randomColor();
+    confetti.style.animationDuration = 3 + Math.random() * 2 + "s"; // Farklı hızlar
+    document.body.appendChild(confetti);
+    setTimeout(() => confetti.remove(), 5000); // 5 saniyede yok ol
+  }
+
+  // Rastgele Konfeti Renkleri
+  function randomColor() {
+    const colors = ["#ff69b4", "#ffb6c1", "#ff4500", "#32cd32", "#87cefa"];
+    return colors[Math.floor(Math.random() * colors.length)];
+  }
+</script>
+
+</body>
+</html>
