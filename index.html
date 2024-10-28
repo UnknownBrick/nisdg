@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Doğum Günü Kartı</title>
+  <title>dg</title>
   <style>
     body {
       display: flex;
@@ -11,7 +11,7 @@
       align-items: center;
       height: 100vh;
       margin: 0;
-      background-color: #ADD8E6; /* Bebek mavisi arka plan */
+      background-color: #ADD8E6; 
       font-family: "Comic Sans MS", cursive;
       overflow: hidden;
     }
@@ -23,7 +23,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      background-color: rgba(255, 105, 180, 0.9); /* Pembe buton, yarı opak */
+      background-color: rgba(255, 105, 180, 0.9);
       color: white;
       border: none;
       border-radius: 10px;
@@ -50,7 +50,7 @@
       transition: transform 1s;
     }
     .card.show-back {
-      transform: rotateY(-180deg); /* Sağdan sola dönüş */
+      transform: rotateY(-180deg);
     }
     .card-face {
       position: absolute;
@@ -72,7 +72,6 @@
       font-size: 24px;
       color: #333;
     }
-    /* Konfeti Animasyonu */
     .confetti {
       position: absolute;
       width: 8px;
@@ -100,38 +99,31 @@
 <audio id="backgroundMusic" src="https://github.com/UnknownBrick/hardyboyz/blob/main/cats%202023%20remiks.mp3?raw=true" loop></audio>
 
 <script>
-  // Kartı Döndürme Fonksiyonu
   function toggleCard() {
     const card = document.getElementById('birthdayCard');
     card.classList.toggle('show-back');
   }
 
-  // Kutlamayı Başlatma Fonksiyonu
   function startCelebration() {
-    // Butonu gizle
     const startButton = document.getElementById("startButton");
     startButton.classList.add("hidden");
 
-    // Müzik başlat
     const music = document.getElementById("backgroundMusic");
     music.play();
 
-    // Konfeti Patlatma
-    setInterval(createConfetti, 300); // Daha fazla partikül oluşturma
+    setInterval(createConfetti, 300);
   }
 
-  // Konfeti Oluşturma Fonksiyonu
   function createConfetti() {
     const confetti = document.createElement("div");
     confetti.classList.add("confetti");
     confetti.style.left = Math.random() * window.innerWidth + "px";
     confetti.style.backgroundColor = randomColor();
-    confetti.style.animationDuration = 3 + Math.random() * 2 + "s"; // Farklı hızlar
+    confetti.style.animationDuration = 3 + Math.random() * 2 + "s";
     document.body.appendChild(confetti);
-    setTimeout(() => confetti.remove(), 5000); // 5 saniyede yok ol
+    setTimeout(() => confetti.remove(), 5000);
   }
 
-  // Rastgele Konfeti Renkleri
   function randomColor() {
     const colors = ["#ff69b4", "#ffb6c1", "#ff4500", "#32cd32", "#87cefa"];
     return colors[Math.floor(Math.random() * colors.length)];
